@@ -1,0 +1,8 @@
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/ico/MinecraftHTMLview.png"
+  adaptive_icon_background: "#101411"
+  adaptive_icon_foreground: "assets/ico/MinecraftHTMLview.png"
+  adaptive_icon_foreground_scale: 0.75
+  remove_alpha_ios: true
