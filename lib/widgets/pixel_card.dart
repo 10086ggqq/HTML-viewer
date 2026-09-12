@@ -92,7 +92,12 @@ class PixelCard extends ConsumerWidget {
       margin: margin,
       child: DecoratedBox(
         decoration: ShapeDecoration(color: cardColor, shape: shape),
-        child: Padding(padding: padding, child: child),
+        child: Material(
+          // Give interactive children (ListTile / InkWell) a Material to paint
+          // on that sits above the card background.
+          type: MaterialType.transparency,
+          child: Padding(padding: padding, child: child),
+        ),
       ),
     );
   }

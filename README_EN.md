@@ -7,7 +7,7 @@
 # Minecraft HTMLViewer
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/your-username/htmlviewer?style=social)](https://github.com/your-username/htmlviewer/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/10086ggqq/HTML-viewer?style=social)](https://github.com/10086ggqq/HTML-viewer/stargazers)
 
 **A Minecraft-styled HTML viewer and front-end debugging toolkit for Android — open, read, and debug web pages on your phone like exploring a blocky new world.**
 
@@ -16,6 +16,7 @@ This is not just another WebView wrapper. It ships with a full source-code reade
 ## Features
 
 - [x] HTML preview — open local files or pick folders via Android SAF; relative resources (CSS / JS / images) resolve correctly
+- [x] Handwritten HTML editor — Code/Preview tabs on phones and a side-by-side split at ≥700dp; live preview via loadHtmlString, HTML file import, clipboard paste, starter template, copy-all, font-size control, clear, and "save as file" (into handwritten/, opening the viewer right after); the draft autosaves (800ms debounce) and the Console panel stays available
 - [x] Source viewer — syntax highlighting for HTML / CSS / JS / JSON / Markdown in a Minecraft-inspired palette (XP green, diamond blue, gold, redstone red)
 - [x] Reader tooling — line-number gutter, in-file search (case-insensitive, jump up/down, match counter), font-size control, and a word-wrap toggle
 - [x] Console panel — hooks `console.log / warn / error`, captures `window.onerror` and unhandled promise rejections; color-coded levels, long-press to copy, one-tap clear
@@ -42,8 +43,8 @@ This is not just another WebView wrapper. It ships with a full source-code reade
 ### 2. Clone and install dependencies
 
 ```bash
-git clone https://github.com/your-username/htmlviewer.git
-cd htmlviewer
+git clone https://github.com/10086ggqq/HTML-viewer.git
+cd HTML-viewer
 flutter pub get
 ```
 
@@ -91,7 +92,7 @@ The APK lands in `build/app/outputs/flutter-apk/app-release.apk`.
 ## Project Structure
 
 ```text
-htmlviewer/
+HTML-viewer/
 ├── lib/
 │   ├── main.dart                       # Entry point: boots persistence, then the app
 │   ├── app/                            # App skeleton
@@ -106,11 +107,12 @@ htmlviewer/
 │   │   ├── home/                       # Home screen
 │   │   ├── files/                      # File lists, history controllers, open flow
 │   │   ├── favorites/                  # Favorites page
+│   │   ├── editor/                     # Handwritten HTML editor (code / live preview)
 │   │   ├── viewer/                     # WebView preview (preview/source tabs)
 │   │   ├── source/                     # Source reader & syntax highlighting
 │   │   ├── developer/                  # Console panel
 │   │   └── settings/                   # Settings model / controller / page
-│   ├── storage/                        # Settings & history storage layer
+│   ├── storage/                        # Settings / history / editor-draft storage layer
 │   └── widgets/                        # Pixel widget library (buttons / cards / icons / progress)
 ├── test/                               # Unit & widget tests
 ├── assets/

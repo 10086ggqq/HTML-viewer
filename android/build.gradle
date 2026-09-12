@@ -1,5 +1,14 @@
 allprojects {
     repositories {
+        // 优先阿里云镜像：直连 dl.google.com / repo1.maven.org 在国内极易超时，
+        // 之前 settings.gradle 里配的镜像只作用于 pluginManagement（插件解析），
+        // 依赖解析走的是下面这一份，必须同样加上镜像才生效。
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
+        // 官方源兜底（阿里云缺失的包会回退到这里）
         google()
         mavenCentral()
     }

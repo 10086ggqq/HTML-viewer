@@ -8,6 +8,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import '../../core/services/share_service.dart';
 import '../../core/utils/format_utils.dart';
 import '../../data/models/html_entry.dart';
+import '../../widgets/developer_fab.dart';
 import '../../widgets/pixel_button.dart';
 import '../../widgets/pixel_card.dart';
 import '../../widgets/pixel_progress.dart';
@@ -134,8 +135,8 @@ class _ViewerPageState extends ConsumerState<ViewerPage>
           // Local documents (file/content) always load; external http(s)
           // navigation is gated by the "allow network" setting.
           final url = request.url;
-          final isLocal = !url.startsWith('http://') &&
-              !url.startsWith('https://');
+          final isLocal =
+              !url.startsWith('http://') && !url.startsWith('https://');
           if (isLocal || ref.read(settingsProvider).allowNetwork) {
             return NavigationDecision.navigate;
           }
@@ -474,7 +475,7 @@ class _ViewerPageState extends ConsumerState<ViewerPage>
                 onPressed: () => setState(() => _fullscreen = false),
                 child: const Icon(Icons.fullscreen_exit),
               )
-            : _DeveloperFab(
+            : DeveloperFab(
                 errorCount: ref.watch(
                   consoleProvider.select(
                     (messages) => messages
@@ -567,8 +568,7 @@ class _ErrorView extends StatelessWidget {
               Text(
                 description,
                 textAlign: TextAlign.center,
-                style:
-                    text.bodySmall?.copyWith(color: colors.onSurfaceVariant),
+                style: text.bodySmall?.copyWith(color: colors.onSurfaceVariant),
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -590,77 +590,6 @@ class _ErrorView extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Minecraft-style `</>` floating button that opens Developer Mode; shows a
-/// redstone badge while the console holds errors.
-class _DeveloperFab extends StatelessWidget {
-  const _DeveloperFab({required this.errorCount, required this.onPressed});
-
-  final int errorCount;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    final dark = Theme.of(context).brightness == Brightness.dark;
-
-    return FloatingActionButton(
-      backgroundColor: dark ? const Color(0xFF181D19) : Colors.white,
-      foregroundColor: colors.onSurface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: dark
-              ? const Color(0xFF39423A)
-              : const Color(0xFFC9C2AD),
-          width: 2,
-        ),
-      ),
-      onPressed: onPressed,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          const Center(
-            child: Text(
-              '</>',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 16,
-                color: Color(0xFFE8642B),
-              ),
-            ),
-          ),
-          if (errorCount > 0)
-            Positioned(
-              right: -2,
-              top: -2,
-              child: Container(
-                padding: const EdgeInsets.all(3),
-                decoration: const BoxDecoration(
-                  color: Color(0xFFD9483F),
-                  shape: BoxShape.circle,
-                ),
-                constraints: const BoxConstraints(
-                  minWidth: 14,
-                  minHeight: 14,
-                ),
-                child: Text(
-                  errorCount > 9 ? '9+' : '$errorCount',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    height: 1.1,
-                  ),
-                ),
-              ),
-            ),
-        ],
       ),
     );
   }

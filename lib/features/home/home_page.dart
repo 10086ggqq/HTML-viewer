@@ -32,6 +32,11 @@ class HomePage extends ConsumerWidget {
             _OpenHtmlCard(
               onOpen: () => showOpenHtmlSheet(context, ref),
             ),
+            const SizedBox(height: 16),
+            _HandwriteCard(
+              onOpen: () =>
+                  ref.read(shellIndexProvider.notifier).state = editorTabIndex,
+            ),
             const SizedBox(height: 28),
             _SectionTitle(title: '最近打开'),
             const SizedBox(height: 10),
@@ -94,14 +99,12 @@ class _Header extends ConsumerWidget {
             children: [
               Text(
                 'HTMLViewer',
-                style:
-                    text.headlineMedium?.copyWith(color: colors.primary),
+                style: text.headlineMedium?.copyWith(color: colors.primary),
               ),
               const SizedBox(height: 6),
               Text(
                 'Your HTML crafting table',
-                style: text.bodySmall
-                    ?.copyWith(color: colors.onSurfaceVariant),
+                style: text.bodySmall?.copyWith(color: colors.onSurfaceVariant),
               ),
             ],
           ),
@@ -110,7 +113,7 @@ class _Header extends ConsumerWidget {
           tooltip: '设置',
           icon: const Icon(Icons.settings_outlined),
           onPressed: () =>
-              ref.read(shellIndexProvider.notifier).state = 3,
+              ref.read(shellIndexProvider.notifier).state = settingsTabIndex,
         ),
       ],
     );
@@ -189,6 +192,61 @@ class _OpenHtmlCard extends StatelessWidget {
   }
 }
 
+class _HandwriteCard extends StatelessWidget {
+  const _HandwriteCard({required this.onOpen});
+
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
+
+    return PixelCard(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const PixelFileIcon(
+                badge: '</>',
+                color: Color(0xFF3EC7C0),
+                size: 52,
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '手写 HTML',
+                      style: text.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '亲手编写代码，实时预览你的网页世界',
+                      style: text.bodySmall
+                          ?.copyWith(color: colors.onSurfaceVariant),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          PixelButton(
+            label: '开始编写',
+            icon: Icons.edit_note,
+            expanded: true,
+            onPressed: onOpen,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _FootprintEmptyCard extends StatelessWidget {
   const _FootprintEmptyCard();
 
@@ -205,8 +263,7 @@ class _FootprintEmptyCard extends StatelessWidget {
           Expanded(
             child: Text(
               '这里还没有留下脚印。',
-              style:
-                  text.bodySmall?.copyWith(color: colors.onSurfaceVariant),
+              style: text.bodySmall?.copyWith(color: colors.onSurfaceVariant),
             ),
           ),
         ],

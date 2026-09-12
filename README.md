@@ -7,7 +7,7 @@
 # Minecraft HTMLViewer
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/your-username/htmlviewer?style=social)](https://github.com/your-username/htmlviewer/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/10086ggqq/HTML-viewer?style=social)](https://github.com/10086ggqq/HTML-viewer/stargazers)
 
 **一款 Minecraft 像素风格的 Android HTML 查看器与前端调试工具——在手机上打开、阅读、调试你的网页，就像在方块世界里探索地图一样。**
 
@@ -16,6 +16,7 @@
 ## 功能特性
 
 - [x] HTML 预览：本地文件 / SAF 文件夹直开，支持同目录相对资源（CSS / JS / 图片）
+- [x] 手写 HTML 编辑器：手机端「编写 / 预览」双标签、平板端 ≥700dp 左右分栏；代码实时预览（loadHtmlString）、HTML 文件导入、剪贴板粘贴、示例模板、复制全部、字号调节、清空与「保存为文件」（handwritten/ 目录，保存后直接进入预览）；草稿自动持久化（防抖 800ms），Console 调试台同样可用
 - [x] 源码阅读器：HTML / CSS / JS / JSON / Markdown 语法高亮 + Minecraft 配色（XP 绿、钻石蓝、金、红石红）
 - [x] 源码工具箱：行号侧栏、文件内搜索（大小写不敏感、上下跳转、命中计数）、字号调节、自动换行开关
 - [x] Console 调试台：劫持 `console.log / warn / error`、捕获 `window.onerror` 与未处理的 Promise 拒绝，按等级着色、长按复制、一键清空
@@ -42,8 +43,8 @@
 ### 2. 获取源码并安装依赖
 
 ```bash
-git clone https://github.com/your-username/htmlviewer.git
-cd htmlviewer
+git clone https://github.com/10086ggqq/HTML-viewer.git
+cd HTML-viewer
 flutter pub get
 ```
 
@@ -91,7 +92,7 @@ flutter build apk --release
 ## 项目结构
 
 ```text
-htmlviewer/
+HTML-viewer/
 ├── lib/
 │   ├── main.dart                       # 入口：初始化持久化并启动 App
 │   ├── app/                            # 应用骨架
@@ -106,11 +107,12 @@ htmlviewer/
 │   │   ├── home/                       # 首页
 │   │   ├── files/                      # 文件列表、历史控制器、打开流程
 │   │   ├── favorites/                  # 收藏页
+│   │   ├── editor/                     # 手写 HTML 编辑器（编写 / 实时预览）
 │   │   ├── viewer/                     # WebView 预览页（预览 / 源码双标签）
 │   │   ├── source/                     # 源码阅读器与语法高亮
 │   │   ├── developer/                  # Console 调试台
 │   │   └── settings/                   # 设置模型 / 控制器 / 页面
-│   ├── storage/                        # settings / history 存储层
+│   ├── storage/                        # settings / history / editor 草稿存储层
 │   └── widgets/                        # 像素组件库（按钮 / 卡片 / 图标 / 进度条）
 ├── test/                               # 单元与组件测试
 ├── assets/

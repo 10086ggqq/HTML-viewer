@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../features/editor/editor_page.dart';
 import '../features/favorites/favorites_page.dart';
 import '../features/files/files_page.dart';
 import '../features/home/home_page.dart';
@@ -9,14 +10,22 @@ import '../features/settings/settings_page.dart';
 /// Index of the currently visible tab in [RootShell].
 final shellIndexProvider = StateProvider<int>((ref) => 0);
 
-/// App scaffold with bottom navigation:
-/// 首页 / 文件 / 收藏 / 设置.
+/// Tab indexes of the navigation destinations (shared with pages that jump
+/// to a specific tab, e.g. the home header's settings shortcut).
+const homeTabIndex = 0;
+const filesTabIndex = 1;
+const editorTabIndex = 2;
+const favoritesTabIndex = 3;
+const settingsTabIndex = 4;
+
+/// App scaffold with navigation for 首页 / 文件 / 编写 / 收藏 / 设置.
 class RootShell extends ConsumerWidget {
   const RootShell({super.key});
 
   static const _pages = [
     HomePage(),
     FilesPage(),
+    EditorPage(),
     FavoritesPage(),
     SettingsPage(),
   ];
@@ -46,6 +55,11 @@ class RootShell extends ConsumerWidget {
                   icon: Icon(Icons.folder_outlined),
                   selectedIcon: Icon(Icons.folder),
                   label: Text('文件'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.edit_outlined),
+                  selectedIcon: Icon(Icons.edit),
+                  label: Text('编写'),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.star_border),
@@ -82,6 +96,11 @@ class RootShell extends ConsumerWidget {
             icon: Icon(Icons.folder_outlined),
             selectedIcon: Icon(Icons.folder),
             label: '文件',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.edit_outlined),
+            selectedIcon: Icon(Icons.edit),
+            label: '编写',
           ),
           NavigationDestination(
             icon: Icon(Icons.star_border),
